@@ -1,0 +1,26 @@
+{
+  "name": "pdmeteredrequestprocessor",
+  "version": "1.0.0",
+  "main": "src/library.js",
+  "scripts": {
+    "testFile": "webpack --config ./webpackConfigs/webpack.config.testing.js",
+    "devBuild": "webpack --config ./webpackConfigs/webpack.config.dev.js",
+    "prodBuild": "webpack --config ./webpackConfigs/webpack.config.prod.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "latest"
+  },
+  "devDependencies": {
+    "babel-core": "latest",
+    "babel-loader": "latest",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-0": "latest",
+    "clean-webpack-plugin": "latest",
+    "eslint": "latest",
+    "html-webpack-plugin": "latest",
+    "npm-run-all": "latest",
+    "webpack": "latest",
+    "webpack-dev-server": "latest"
+  }
+}
