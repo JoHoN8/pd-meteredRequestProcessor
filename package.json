@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "src/library.js",
   "scripts": {
-    "testFile": "webpack --config ./webpackConfigs/webpack.config.testing.js",
+    "testFile": "webpack-dev-server --config ./webpackConfigs/webpack.config.testing.js",
     "devBuild": "webpack --config ./webpackConfigs/webpack.config.dev.js",
     "prodBuild": "webpack --config ./webpackConfigs/webpack.config.prod.js"
   },

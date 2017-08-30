@@ -5,11 +5,10 @@
         "es6": true,
         "node": true
     },
-    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "extends": ["eslint:recommended"],
     "parserOptions": {
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
-            "jsx": true,
             "arrowFunctions": true,
             "blockBindings": true,
             "classes": true,
@@ -35,16 +34,11 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
     ],
     "rules": {
         "linebreak-style": [
             "error",
             "windows"
-        ],
-        "quotes": [
-            "error",
-            "double"
         ],
         "semi": [
             "error",

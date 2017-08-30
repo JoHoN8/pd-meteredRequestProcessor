@@ -1,19 +1,18 @@
 module.exports = function(env) {
     const path = require('path'),
+        webpack = require('webpack'),
         cleanWebpackPlugin = require('clean-webpack-plugin'),
         HtmlWebpackPlugin = require('html-webpack-plugin'),
-        settings = require('./statics/configSettings.js'),
-        ExtractTextPlugin = require('extract-text-webpack-plugin'),
-        extractCSS = new ExtractTextPlugin(settings.styleSheetNames.dev.css),
-        extractSCSS  = new ExtractTextPlugin(settings.styleSheetNames.dev.scss);
+        settings = require('./statics/configSettings.js');
 
     return {
         entry: {
-            main: '../tests/project_tests.js'
+            main: './tests/project_tests.js'
         },
         output: {
-            path: path.resolve(__dirname, "../tests"),
-            filename: `${packageData.name}_tests.js`,
+            path: path.resolve(__dirname, "../tests/dist"),
+            filename: 'project_tests_prepped.js',
+            publicPath: "/"
         },
         module:{
             rules:[
@@ -31,13 +30,16 @@ module.exports = function(env) {
             extensions: ['.js', '.css', '.json']
         },
         plugins: [
-            new cleanWebpackPlugin(['dist'], settings.cleanOptions),
+            new cleanWebpackPlugin(['dist'], settings.cleanOptionsTesting),
             new HtmlWebpackPlugin(settings.htmlPluginOptions),
-            extractCSS,
-            extractSCSS
+            new webpack.HotModuleReplacementPlugin()
         ],
         devtool: 'inline-source-map',
-        externals: {}
+        externals: {},
+        devServer: {
+            hot: true, // Tell the dev-server we're using HMR
+            contentBase: './tests/dist'
+        }
     };
 };
 

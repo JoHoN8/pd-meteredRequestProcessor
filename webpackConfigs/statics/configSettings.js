@@ -4,11 +4,14 @@ const path = require('path');
 
 module.exports = {
 	htmlPluginOptions: {
-        inject: false,
-        template: "./tests/index.html"
+		template: "./tests/index.html",
+		inject: 'body'
 	},
 	cleanOptions: {
-        root: path.resolve(__dirname, "../../")
+		root: path.resolve(__dirname, "../../")
+	},
+	cleanOptionsTesting: {
+		root: path.resolve(__dirname, "../../tests")
 	},
 	UglifyJsOptions: {
 		sourceMap: true
