@@ -5,13 +5,15 @@
   "scripts": {
     "testFile": "webpack-dev-server --config ./webpackConfigs/webpack.config.testing.js",
     "devBuild": "webpack --config ./webpackConfigs/webpack.config.dev.js",
-    "prodBuild": "webpack --config ./webpackConfigs/webpack.config.prod.js"
+    "prodBuild": "webpack --config ./webpackConfigs/webpack.config.prod.js",
+    "createReadMe": "babel-node ./jsReadMeGeny.js"
   },
   "license": "ISC",
   "dependencies": {
     "lodash": "latest"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "latest",
     "babel-loader": "latest",
     "babel-preset-env": "^1.6.0",
@@ -19,6 +21,7 @@
     "clean-webpack-plugin": "latest",
     "eslint": "latest",
     "html-webpack-plugin": "latest",
+    "jsdoc-to-markdown": "^3.0.0",
     "npm-run-all": "latest",
     "webpack": "latest",
     "webpack-dev-server": "latest"
