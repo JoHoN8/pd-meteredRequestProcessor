@@ -1,12 +1,16 @@
 {
-  "name": "pdmeteredrequestprocessor",
-  "version": "1.0.0",
+  "name": "pd-meteredrequestprocessor",
+  "version": "1.1.0",
   "main": "src/library.js",
   "scripts": {
     "testFile": "webpack-dev-server --config ./webpackConfigs/webpack.config.testing.js",
     "devBuild": "webpack --config ./webpackConfigs/webpack.config.dev.js",
     "prodBuild": "webpack --config ./webpackConfigs/webpack.config.prod.js",
-    "createReadMe": "babel-node ./jsReadMeGeny.js"
+    "docs": "jsdoc2md src/library.js > README.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JoHoN8/pd-meteredRequestProcessor.git"
   },
   "license": "ISC",
   "dependencies": {

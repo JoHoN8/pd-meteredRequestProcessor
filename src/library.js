@@ -1,6 +1,3 @@
-/**
-    app name pdmeteredrequestprocessor
- */
 import * as statics from './constants';
 
 /**
@@ -10,21 +7,8 @@ import * as statics from './constants';
  */
 export class meteredRequestProcessor {
 
-    /**
-     * ItemsToProcess is an array of anything you want, but each item in this array and the order number will be passed to addToProcessingCallback
-     * and that function MUST return a native promise.
-     * the order number is your id to locate elements (dom or whatever) based on the specific item processing
-     * the processingCompletedCallback will be passed the order number and the process status (success or fail) to trigger any completed side effects
-     * @param {any[]} itemsToProcess 
-     * @param {function} addToProcessingCallback 
-     * @param {function} processingCompletedCallBack 
-     */
-    constructor(itemsToProcess, addToProcessingCallback, processingCompletedCallback) {
-        this.addedItems = [];
+    constructor() {
         this._processingItems = [];
-        this.addedItems = this.addedItems.concat(itemsToProcess);
-        this.toProcessingCB = addToProcessingCallback;
-        this.postProcessingCB = processingCompletedCallback;
         this._totalToProcess = 3;
     }
     _totalProcessingItems() {
@@ -45,8 +29,8 @@ export class meteredRequestProcessor {
         obj.status = status;
         obj.completed = true;
 
-        if (this.postProcessingCB) {
-            this.postProcessingCB(obj.place, obj.status);
+        if (this._postProcessingCB) {
+            this._postProcessingCB(obj.place, obj.status);
         }
     }
     _addToProcessor(index, promise) {
@@ -79,7 +63,7 @@ export class meteredRequestProcessor {
         //if not call addToProcessingCallBack, store in var and tack on a then
         let nextAvailableIndex = this._processingItems.length,
             nextItemToProcess = this.addedItems.shift(),
-            cbProcessed = this.toProcessingCB(nextItemToProcess, nextAvailableIndex);
+            cbProcessed = this._toProcessingCB(nextItemToProcess, nextAvailableIndex);
         
         if (!(cbProcessed instanceof Promise)) {
             //function passed in by user is not setup correctly, it must return a promise
@@ -100,6 +84,43 @@ export class meteredRequestProcessor {
         //else call preProcessing
         this._preProcessing();
     }
+    _toProcessingCB() {
+        throw new Error(statics.noPreProcssorCB);
+    }
+    /**
+     * Sets the callback that will be called when an item is finished processing
+     * @param {itemCompleted} cb 
+     * @returns {void}
+     */
+    setItemProcessedCB(cb) {
+        /**
+         * The processingCompletedCallback will be passed the order number and the process status (success or fail) to trigger any completed side effects
+         * The order number is your id to locate elements (dom or whatever) based on the specific item processing
+         *
+         * @callback itemCompleted
+         * @param {number} index
+         * @param {string} status
+         */
+        this._postProcessingCB = cb;
+    }
+    /**
+     * Sets the callback that will be called to add items to be processed
+     * 
+     * @param {preProcessor} cb
+     * @returns {promise} 
+     */
+    setPreProcessingCB(cb) {
+        /**
+         * The index and itemData to process will be passed to this function
+         * it MUST return a native promise.
+         * the order number is your id to locate elements (dom or whatever) based on the specific item processing
+         *
+         * @callback preProcessor
+         * @param {number} index
+         * @param {*} itemData
+         */
+        this._toProcessingCB = cb;
+    }
     /**
      * Allows you to change the total amount of simultaneous items to be procesed. 
      * @param {number} count 
@@ -109,7 +130,8 @@ export class meteredRequestProcessor {
     }
     /**
      * Starts the processing process.
-     * returns a native promise to .then off of, no need to catch, all item (success or fail) will be processed and passed to the .then
+     * ItemsToProcess is an array of anything you want, but each item in this array
+     * Returns a native promise to .then off of, no need to catch, all item (success or fail) will be processed and passed to the .then
      * the items passed to the .then will be and array of objects with the following structure
      *  {
      *      place: number,
@@ -117,9 +139,15 @@ export class meteredRequestProcessor {
      *      status: string (success or fail)
      *      response: the data returned from the server
      *  }
+     * @param {array} itemsToProcess 
      * @returns {promise}
      */
-    init() {
+    init(itemsToProcess) {
+        if (!(Array.isArray(itemsToProcess))) {
+            throw new Error(statics.incorrectDataTypeForItems);
+        }
+        this.addedItems = itemsToProcess;
+
         return new Promise((resolve, reject) => {
             this._mainResolve = resolve;
             this._mainReject = reject;
