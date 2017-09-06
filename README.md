@@ -88,8 +88,8 @@ The processingCompletedCallback will be passed the order number and the process 
 
 | Param | Type |
 | --- | --- |
-| index | <code>number</code> | 
 | status | <code>string</code> | 
+| index | <code>number</code> | 
 
 <a name="preProcessor"></a>
 
@@ -100,6 +100,6 @@ The index and itemData to process will be passed to this functionit MUST return
 
 | Param | Type |
 | --- | --- |
-| index | <code>number</code> | 
 | itemData | <code>\*</code> | 
+| index | <code>number</code> | 
 

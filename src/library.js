@@ -30,7 +30,7 @@ export class meteredRequestProcessor {
         obj.completed = true;
 
         if (this._postProcessingCB) {
-            this._postProcessingCB(obj.place, obj.status);
+            this._postProcessingCB(obj.status, obj.place);
         }
     }
     _addToProcessor(index, promise) {
@@ -98,8 +98,8 @@ export class meteredRequestProcessor {
          * The order number is your id to locate elements (dom or whatever) based on the specific item processing
          *
          * @callback itemCompleted
-         * @param {number} index
          * @param {string} status
+         * @param {number} index
          */
         this._postProcessingCB = cb;
     }
@@ -116,8 +116,8 @@ export class meteredRequestProcessor {
          * the order number is your id to locate elements (dom or whatever) based on the specific item processing
          *
          * @callback preProcessor
-         * @param {number} index
          * @param {*} itemData
+         * @param {number} index
          */
         this._toProcessingCB = cb;
     }
