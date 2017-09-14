@@ -5,7 +5,7 @@ import * as statics from './constants';
  * and controls how many requests will be sent to the server at a time
  * when all items are finished processing they will be passed to the .then of the init.
  */
-export class meteredRequestProcessor {
+export class MeteredRequestProcessor {
 
     constructor() {
         this._processingItems = [];
