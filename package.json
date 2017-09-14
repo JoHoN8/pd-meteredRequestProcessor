@@ -1,6 +1,6 @@
 {
   "name": "pd-meteredrequestprocessor",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "main": "src/library.js",
   "scripts": {
     "testFile": "webpack-dev-server --config ./webpackConfigs/webpack.config.testing.js",
