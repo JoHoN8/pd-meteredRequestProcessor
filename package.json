@@ -13,9 +13,7 @@
     "url": "https://github.com/JoHoN8/pd-meteredRequestProcessor.git"
   },
   "license": "ISC",
-  "dependencies": {
-    "lodash": "latest"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "latest",
